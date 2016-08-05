@@ -9,7 +9,9 @@ require('./models')(wagner)
 require('./kue')(wagner)
 require('./queue')(wagner)
 
-wagner.invoke((matgroup,config,kue,queue)=>{
+let messa = require('messa')
+
+wagner.invoke((matgroup,material,config,kue,queue,mongoose)=>{
   let app = express()
   app.use(compression())
 
@@ -20,20 +22,29 @@ wagner.invoke((matgroup,config,kue,queue)=>{
 
   app.use('/queue/',kue.app)
 
+  baucis.rest(material)
   baucis.rest(matgroup)
-  app.use('/',baucis())
+  app.use('/api/',baucis())
 
-  let test = new matgroup({
-    ipedoutputpath: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste\\SARD_Midias",
-    materiais: [
-      {path: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste\\item02-M161234_001372995DDD5B941B13000C\\item02-M161234_001372995DDD5B941B13000C.dd"}
-    ]
-  })
-  test.save((err,doc)=>{
-    if (err) return console.error(err)
-    queue.create('iped', doc).save()
-  })
+  app.use('/messa/',messa(mongoose))
 
+
+  function teste(){
+    let m1 = new material({
+      _id: 161234,
+      path: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste\\item02-M161234_001372995DDD5B941B13000C\\item02-M161234_001372995DDD5B941B13000C.dd"
+    })
+    m1.save()
+
+    let test = new matgroup({
+      ipedoutputpath: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste\\SARD_Midias",
+      status: "ready",
+      materiais: [161234]
+    })
+    test.save()
+  }
+
+  //teste()
 
   app.listen(config.listenport)
 })

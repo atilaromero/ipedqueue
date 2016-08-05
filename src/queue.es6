@@ -11,14 +11,14 @@ module.exports = (wagner)=>{
           '-Xms512M',
           '-Xmx6G',
           '-jar', config.iped.jar,
-          '--nogui',
+          '--nogui', '--nologfile',
           '-o', ipedoutputpath
         ]
         materiais.forEach(x=>{
           options = options.concat(['-d',x.path])
         })
         let proc = child_process.spawn('java',options);
-        
+
         [proc.stdout,proc.stderr].forEach(out=>{
           out.setEncoding('utf8')
           out.on('data',data=>{
