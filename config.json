@@ -1,0 +1,16 @@
+{
+  "redis":{
+    "host": "192.168.2.191",
+    "port": "6379"
+  },
+  "mongodb":{
+    "host": "192.168.2.191",
+    "port": "27017",
+    "db": "sard"
+  },
+  "iped":{
+    "jar": "D:\\iped\\iped-3.9.4-patched\\iped.jar",
+    "output": "SARD_Midias"
+  },
+  "listenport": 8010
+}
