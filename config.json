@@ -9,8 +9,7 @@
     "db": "sard"
   },
   "iped":{
-    "jar": "D:\\iped\\iped-3.9.4-patched\\iped.jar",
-    "output": "SARD_Midias"
+    "jar": "D:\\iped\\iped-3.9.4-patched\\iped.jar"
   },
   "listenport": 8010
 }

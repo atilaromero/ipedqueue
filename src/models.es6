@@ -6,23 +6,22 @@ module.exports = (wagner)=>{
       equipe: String,
       path: String
     })
-
-    schema.post('save',(doc)=>{
-      console.log('saved',doc._id)
-    })
     return schema
   })
 
-  wagner.factory('apreensao',(mongoose,materialSchema)=>{
+  wagner.factory('material',(mongoose,materialSchema)=>{
+    let model = mongoose.model('material',materialSchema)
+    model.plural('material')
+    return model
+  })
+
+  wagner.factory('matgroup',(mongoose,materialSchema)=>{
     let schema = new mongoose.Schema({
-      path: String,
+      ipedoutputpath: String,
       materiais: [materialSchema]
     })
-    schema.post('save',(doc)=>{
-      console.log('saved',doc._id)
-    })
-    let model = mongoose.model('apreensao', schema)
-    model.plural('apreensao')
+    let model = mongoose.model('matgroup', schema)
+    model.plural('matgroup')
     return model
   })
 }

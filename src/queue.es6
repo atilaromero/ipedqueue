@@ -6,25 +6,26 @@ module.exports = (wagner)=>{
       queue.process('iped',(job,done)=>{
         console.log('new job',job.data)
         let materiais = job.data.materiais
-        let path = job.data.path
+        let ipedoutputpath = job.data.ipedoutputpath
         let options = [
           '-Xms512M',
           '-Xmx6G',
-          '-jar',
-          config.iped.jar,
-          '-o',
-          path+'\\'+config.iped.output
+          '-jar', config.iped.jar,
+          '--nogui',
+          '-o', ipedoutputpath
         ]
         materiais.forEach(x=>{
           options = options.concat(['-d',x.path])
         })
-        let proc = child_process.spawn('java',options)
-        proc.stdout.setEncoding('utf8')
-        proc.stdout.on('data',data=>{
-          console.log(data.toString())
-        })
-        proc.stderr.on('data',data=>{
-          console.log(data.toString())
+        let proc = child_process.spawn('java',options);
+        
+        [proc.stdout,proc.stderr].forEach(out=>{
+          out.setEncoding('utf8')
+          out.on('data',data=>{
+            [job,console].forEach(x=>{
+              x.log(data.toString())
+            })
+          })
         })
         proc.on('close',code=>{
           console.log('exit code', code)

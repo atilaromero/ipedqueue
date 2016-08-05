@@ -9,7 +9,7 @@ require('./models')(wagner)
 require('./kue')(wagner)
 require('./queue')(wagner)
 
-wagner.invoke((apreensao,config,kue,queue)=>{
+wagner.invoke((matgroup,config,kue,queue)=>{
   let app = express()
   app.use(compression())
 
@@ -20,11 +20,11 @@ wagner.invoke((apreensao,config,kue,queue)=>{
 
   app.use('/queue/',kue.app)
 
-  baucis.rest(apreensao)
+  baucis.rest(matgroup)
   app.use('/',baucis())
 
-  let test = new apreensao({
-    path: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste",
+  let test = new matgroup({
+    ipedoutputpath: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste\\SARD_Midias",
     materiais: [
       {path: "Z:\\operacoes\\operacao_teste\\auto_apreensao_teste\\item02-M161234_001372995DDD5B941B13000C\\item02-M161234_001372995DDD5B941B13000C.dd"}
     ]
