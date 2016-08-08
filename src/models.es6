@@ -5,6 +5,7 @@ module.exports = (wagner)=>{
       item: Number,
       apreensao: String,
       equipe: String,
+      operacao: String,
       path: String
     })
     return schema

@@ -19,6 +19,8 @@ module.exports = (wagner)=>{
         })
         let proc = child_process.spawn('java',options);
 
+        job.log('options:',options)
+
         [proc.stdout,proc.stderr].forEach(out=>{
           out.setEncoding('utf8')
           out.on('data',data=>{
