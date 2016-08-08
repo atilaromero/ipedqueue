@@ -17,11 +17,11 @@ module.exports = (wagner)=>{
         materiais.forEach(x=>{
           options = options.concat(['-d',x.path])
         })
-        let proc = child_process.spawn('java',options);
-
+        let proc = child_process.spawn('java',options)
         job.log('options:',options)
-
-        [proc.stdout,proc.stderr].forEach(out=>{
+        
+        let outs = [proc.stdout,proc.stderr]
+        outs.forEach(out=>{
           out.setEncoding('utf8')
           out.on('data',data=>{
             [job,console].forEach(x=>{
