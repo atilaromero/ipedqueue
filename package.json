@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "winser -i -s -c",
-    "preuninstall": "winser -r -x -s",
+    "installservice": "winser -i -s -c",
+    "uninstallservice": "winser -r -x -s",
     "prestart": "gulp",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "gulp",
+    "test": "jasmine",
+    "watch": "gulp watch"
   },
   "author": "",
   "license": "GPL-3.0",
@@ -27,6 +29,8 @@
     "babel-register": "^6.11.6",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
-    "gulp-load-plugins": "^1.2.4"
+    "gulp-jasmine": "^2.4.0",
+    "gulp-load-plugins": "^1.2.4",
+    "jasmine": "^2.4.1"
   }
 }
