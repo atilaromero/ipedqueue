@@ -11,5 +11,6 @@
   "iped":{
     "jar": "D:\\iped\\iped-3.9.4-patched\\iped.jar"
   },
-  "listenport": 80
+  "listenport": 80,
+  "precmd": "if not exist z: (net use z: \\\\setecrs\\iped )"
 }

@@ -14,12 +14,12 @@
 redis:
   image: redis
   container_name: redis-test
-  expose:
-    - 6379
+  ports:
+    - 127.0.0.1:6379:6379
   restart: unless-stopped
 mongo:
   image: mongo
   container_name: mongo-test
-  expose:
-    - 27017
+  ports:
+    - 127.0.0.1:27017:27017
   restart: unless-stopped

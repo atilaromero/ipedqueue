@@ -1,15 +1,16 @@
 {
   "redis":{
-    "host": "redis-test",
+    "host": "localhost",
     "port": "6379"
   },
   "mongodb":{
-    "host": "mongo-test",
+    "host": "localhost",
     "port": "27017",
     "db": "sard-test"
   },
   "iped":{
-    "jar": "/usr/local/src/iped/iped.jar"
+    "jar": "./iped/iped.jar"
   },
-  "listenport": 80
+  "listenport": 8880,
+  "precmd": ""
 }
