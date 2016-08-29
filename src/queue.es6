@@ -1,13 +1,19 @@
 let child_process = require('child_process')
+let hooker = require('hooker')
+let sliced = require('sliced')
 
 module.exports = (wagner)=>{
   wagner.factory('queue',(kue,config)=>{
       let queue = kue.createQueue({redis:config.redis})
       let preparecmd = config.preparecmd
       queue.process('iped',(job,done)=>{
+        console.log('1234')
         function execSync(cmd){
           job.log(cmd,child_process.execSync(cmd).toString())
         }
+        // hooker.hook(job,'log',()=>{
+        //   //console.log(sliced(arguments))
+        // })
         let materiais = job.data.materiais
         let ipedoutputpath = job.data.ipedoutputpath
         let options = [
