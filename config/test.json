@@ -6,7 +6,7 @@
   "mongodb":{
     "host": "localhost",
     "port": "27017",
-    "db": "sard-test"
+    "db": "test"
   },
   "iped":{
     "jar": "./iped/iped.jar"
