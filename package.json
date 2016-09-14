@@ -7,22 +7,29 @@
     "installservice": "winser -i -s -c",
     "uninstallservice": "winser -r -x -s",
     "start": "node server.js",
-    "test": "gulp watch"
+    "test": "gulp test",
+    "watch-test": "gulp watch-test",
+    "dev": "NODE_ENV=development nodemon development/server-dev.js"
   },
   "author": "",
   "license": "GPL-3.0",
   "dependencies": {
     "baucis": "^1.6.5",
+    "bluebird": "^3.4.6",
+    "chai-as-promised": "^5.3.0",
     "clear-require": "^1.0.1",
     "compression": "^1.6.2",
     "config": "^1.21.0",
+    "debug": "^2.2.0",
     "decache": "^4.1.0",
     "express": "^4.14.0",
+    "fs-extra": "^0.30.0",
     "hooker": "^0.2.3",
     "kue": "^0.11.0",
     "messa": "0.0.4",
     "mongoose": "^4.5.8",
     "sliced": "^1.0.1",
+    "superagent": "^2.2.0",
     "wagner-core": "^0.2.0",
     "winser": "^1.0.2"
   },
@@ -39,7 +46,7 @@
     "jasmine": "^2.4.1",
     "mocha": "^3.0.2",
     "mocha-standard": "^1.0.0",
-    "request": "^2.74.0",
+    "nodemon": "^1.10.2",
     "standard": "^8.0.0"
   }
 }

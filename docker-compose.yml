@@ -1,25 +1,12 @@
-# ipedqueue:
-#   build: ../iped-buildenv
-#   links:
-#     - redis
-#     - mongo
-#   volumes:
-#     - ./:/usr/local/src/
-#     - ../iped-buildenv/iped/target/release/:/usr/local/src/iped/
-#   ports:
-#     - 127.0.0.1:8880:80
-#   working_dir: /usr/local/src/
-#   command: npm run test
-#   restart: unless-stopped
 redis:
   image: redis
   container_name: redis-test
   ports:
     - 127.0.0.1:6379:6379
-  restart: unless-stopped
+  restart: on-failure
 mongo:
   image: mongo
   container_name: mongo-test
   ports:
     - 127.0.0.1:27017:27017
-  restart: unless-stopped
+  restart: on-failure
