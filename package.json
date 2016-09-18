@@ -27,6 +27,7 @@
     "hooker": "^0.2.3",
     "kue": "^0.11.0",
     "messa": "0.0.4",
+    "mkdirp": "^0.5.1",
     "mongoose": "^4.5.8",
     "sliced": "^1.0.1",
     "superagent": "^2.2.0",
