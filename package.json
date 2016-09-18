@@ -29,6 +29,7 @@
     "messa": "0.0.4",
     "mkdirp": "^0.5.1",
     "mongoose": "^4.5.8",
+    "node-fs": "^0.1.7",
     "sliced": "^1.0.1",
     "superagent": "^2.2.0",
     "wagner-core": "^0.2.0",
