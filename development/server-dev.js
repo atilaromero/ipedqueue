@@ -1,5 +1,5 @@
 'use strict'
-process.env.NODE_ENV = 'development'
+process.env.NODE_ENV = 'dev'
 
 const wagner = require('wagner-core')
 const path = require('path')
