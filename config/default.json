@@ -12,13 +12,13 @@
     "javabin": "java",
     "javaoptions": [
       "-Xmx6G",
-      "-Xms512M",
+      "-Xms1G",
       "-jar",
-      "D:\\iped\\iped-3.9.4-patched\\iped.jar",
+      "D:\\iped\\iped-3.10.2\\iped.jar",
       "--nogui",
       "--nologfile"
     ]
   },
   "listenport": 80,
-  "precmd": "if not exist z: (net use z: \\\\setecrs\\iped )"
+  "precmd": "if not exist z: (net use z: /home)"
 }

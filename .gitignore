@@ -3,3 +3,4 @@ npm-debug.log
 iped
 config/local*.json
 IPED.log
+server.log

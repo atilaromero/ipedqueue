@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "installservice": "winser -i -s -c",
+    "installservice": "winser -i -s -c ; nssm set ipedqueue AppStdout C:\\ipedqueue.log ; nssm set ipedqueue AppStderr C:\\ipedqueue.log",
     "uninstallservice": "winser -r -x -s",
     "start": "node server.js",
     "test": "gulp test",
