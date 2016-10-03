@@ -8,6 +8,6 @@ gulp.task('test', () => {
     .on('error', $.util.log)
 })
 
-gulp.task('watch-test', ['test'], () => {
+gulp.task('watch', ['test'], () => {
   gulp.watch(['lib/**', 'test/**'], ['test'])
 })

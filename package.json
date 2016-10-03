@@ -8,7 +8,7 @@
     "uninstallservice": "winser -r -x -s",
     "start": "node server.js",
     "test": "gulp test",
-    "watch-test": "gulp watch-test",
+    "watch": "gulp watch",
     "dev": "NODE_ENV=development nodemon development/server-dev.js"
   },
   "author": "",
