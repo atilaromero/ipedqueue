@@ -59,11 +59,30 @@ describe('queue', function () {
     })
   })
 
+  it('can save a material', function (done) {
+    this.wagner.invoke((Material) => {
+      let mat = new Material({_id: 160004, operacao: 'teste', path: 'test/ok'})
+      mat.save()
+      .then(() => { done() })
+      .catch(done)
+    })
+  })
+  it('can save a matgroup', function (done) {
+    this.wagner.invoke((Material, Matgroup) => {
+      let mat = new Material({_id: 160004, operacao: 'teste', path: 'test/ok'})
+      let grp = new Matgroup({materiais: [160004], status: 'done', basedir: './'})
+      mat.save()
+      .then(() => { return grp.save() })
+      .then(() => { done() })
+      .catch(done)
+    })
+  })
+
   describe('queue.jobs.length', () => {
     it('add job on "ready" matgroup state', function (done) {
       this.wagner.invoke((Material, Matgroup, queue) => {
         let mat = new Material({_id: 160004, operacao: 'teste', path: 'test/ok'})
-        let grp = new Matgroup({materiais: [160004], status: 'ready', ipedoutputpath: './'})
+        let grp = new Matgroup({materiais: [160004], status: 'ready', basedir: './'})
         mat.save()
         .then(() => { return grp.save() })
         .then(() => {
@@ -87,7 +106,7 @@ describe('queue', function () {
     function testcounts (done, wagner, matpath, failedincr, completedincr) {
       wagner.invoke((Material, Matgroup, queue) => {
         let mat = new Material({_id: 160002, operacao: 'teste', path: matpath})
-        let grp = new Matgroup({materiais: [160002], status: 'ready', ipedoutputpath: './'})
+        let grp = new Matgroup({materiais: [160002], status: 'ready', basedir: './'})
         let failedCount = Promise.promisify(queue.failedCount, {context: queue})
         let completeCount = Promise.promisify(queue.completeCount, {context: queue})
         let activeCount = Promise.promisify(queue.activeCount, {context: queue})
@@ -110,6 +129,7 @@ describe('queue', function () {
           })
         })
         .then(props => {
+          expect()
           expect(props.failed).equal(initial.failed + failedincr)
           expect(props.completed).equal(initial.completed + completedincr)
         })
@@ -129,14 +149,40 @@ describe('queue', function () {
     function queue1image (done, wagner, matpath, grpstatus, grpfinalstatus) {
       wagner.invoke((Material, Matgroup) => {
         let mat = new Material({_id: 160002, operacao: 'teste', path: matpath})
-        let grp = new Matgroup({materiais: [160002], status: grpstatus, ipedoutputpath: './'})
+        let grp = new Matgroup({materiais: [160002], status: grpstatus, basedir: './'})
         mat.save()
         .then(() => { return grp.save() })
         .then(x => {
-          return sleep(100).then(() => {
+          return sleep(200).then(() => {
             return Matgroup.findOne(x._id)
             .then(doc => {
               expect(doc.status).equal(grpfinalstatus)
+            })
+          })
+        })
+        .then(() => { done() })
+        .catch(done)
+      })
+    }
+  })
+
+  describe('single materials', function () {
+    it('changes material state if process exits with error', function (done) {
+      queue1image(done, this.wagner, 'test/fail', 'todo', 'failed')
+    })
+    it('changes material state if process exits fine', function (done) {
+      queue1image(done, this.wagner, 'test/ok', 'todo', 'done')
+    })
+    function queue1image (done, wagner, matpath, grpstatus, grpfinalstatus) {
+      wagner.invoke((Material) => {
+        let mat = new Material({_id: 160003, operacao: 'teste', path: matpath, espelhado: true})
+        mat.save()
+        .then(x => {
+          return sleep(200).then(() => {
+            return Material.findById(x._id)
+            .then(doc => {
+              expect(doc).not.equal(null)
+              expect(doc.processamento).equal(grpfinalstatus)
             })
           })
         })
@@ -150,7 +196,7 @@ describe('queue', function () {
     it('is being written', function (done) {
       this.wagner.invoke((Material, Matgroup, config) => {
         let mat = new Material({_id: 160002, operacao: 'teste', path: 'test/ok'})
-        let grp = new Matgroup({materiais: [160002], status: 'ready', ipedoutputpath: './'})
+        let grp = new Matgroup({materiais: [160002], status: 'ready', basedir: './'})
         mat.save()
         .then(() => { return grp.save() })
         .then(() => {
@@ -162,10 +208,13 @@ describe('queue', function () {
               let url = 'http://localhost:8880/queue/job/' + lastjobid + '/log'
               request.get(url, (err, res) => {
                 expect(err).equal(null)
-                expect(res.body.pop()).equal('Mocking queue execution. args: ' +
-                  JSON.stringify(config.iped.javaoptions.concat(
-                    ['-o', './', '-d', 'test/ok']
-                  )).replace(/"/g, "'").replace(/,/g, ', ')
+                expect(res.body.pop()).equal(`finished:  { _id: 160002,
+  operacao: 'teste',
+  path: 'test/ok',
+  __v: 0,
+  processamento: 'todo',
+  hashes: 'todo',
+  espelhado: false }`
                 )
                 done()
               })
@@ -194,7 +243,7 @@ describe('queue', function () {
       wagner.invoke((Material, Matgroup, queue, config) => {
         let mat = new Material({_id: 160001, operacao: 'teste', path: matpath1})
         let mat2 = new Material({_id: 160002, operacao: 'teste', path: matpath2})
-        let grp = new Matgroup({materiais: [160001, 160002], status: grpstatus, ipedoutputpath: './'})
+        let grp = new Matgroup({materiais: [160001, 160002], status: grpstatus, basedir: './'})
         mat.save()
         .then(() => { return mat2.save() })
         .then(() => { return grp.save() })
@@ -211,7 +260,4 @@ describe('queue', function () {
       })
     }
   })
-  it('replaces directory if ok')
-  it('rollback when image 2 fails')
-  it('resume only from failed image')
 })
