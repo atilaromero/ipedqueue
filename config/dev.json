@@ -9,12 +9,23 @@
     "db": "development"
   },
   "iped":{
-    "javabin": "/git/iped-buildenv/iped.py",
+    "javabin": "/usr/bin/docker",
     "javaoptions": [
+      "run",
+      "--rm",
+      "-v", "/storages/local/:/storages/local/"
+      "--volumes-from=iped-volumes",
+      "runiped",
+      "java",
+      "-Xmx100G",
+      "-Xms1G",
+      "-jar",
+      "/root/iped/iped.jar",
       "--nogui",
-      "--nologfile"
+      "--nologfile",
+      "--portable"
     ]
   },
-  "listenport": 8080,
+  "listenport": 8880,
   "precmd": ""
 }

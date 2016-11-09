@@ -3,7 +3,6 @@ process.env.NODE_ENV = 'dev'
 
 const wagner = require('wagner-core')
 const path = require('path')
-const assert = require('assert')
 const Promise = require('bluebird')
 const fs = require('fs-extra')
 
@@ -11,7 +10,7 @@ require('../lib/app')(wagner)
 
 wagner.invoke((config, app) => {
   app.listen(config.listenport)
-  wagner.invoke((Matgroup, Material, queue, kue) => {
+  wagner.invoke((Material, queue) => {
     let mat1 = new Material({
       _id: 160001,
       operacao: 'teste',
@@ -22,13 +21,7 @@ wagner.invoke((config, app) => {
       operacao: 'teste',
       path: path.join(__dirname, 'ntfs.dd')
     })
-    let grp = new Matgroup({
-      ipedoutputpath: path.join(__dirname, 'output'),
-      materiais: [160001, 160002],
-      status: 'notready'
-    })
     Promise.all([
-      Matgroup.remove({}),
       Material.remove({})
     ])
     .then(() => {
@@ -42,25 +35,8 @@ wagner.invoke((config, app) => {
         })
       })
     })
-    .then(() => {
-      mat1.save()
-      mat2.save()
-      return grp.save()
-    })
-    .then(() => { return Promise.promisify(queue.active, {context: queue})() })
-    .then(ids => { removeIds(ids) })
-    .then(() => { return Promise.promisify(queue.failed, {context: queue})() })
-    .then(ids => { removeIds(ids) })
-    .then(() => { return Promise.promisify(queue.complete, {context: queue})() })
-    .then(ids => { removeIds(ids) })
-
-    function removeIds (ids) {
-      ids.forEach(function (id) {
-        kue.Job.get(id, function (err, job) {
-          assert.ifError(err)
-          job.remove()
-        })
-      })
-    }
+    .then(() => { return mat1.save() })
+    .then(() => { return mat2.save() })
+    .then(() => { return queue.monitor() })
   })
 })

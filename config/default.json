@@ -9,16 +9,22 @@
     "db": "sard"
   },
   "iped":{
-    "javabin": "java",
+    "javabin": "/usr/bin/docker",
     "javaoptions": [
-      "-Xmx6G",
+      "run",
+      "--rm",
+      "--volumes-from=iped-volumes",
+      "runiped",
+      "java",
+      "-Xmx100G",
       "-Xms1G",
       "-jar",
-      "D:\\iped\\iped-3.10.2\\iped.jar",
+      "/root/iped/iped.jar",
       "--nogui",
-      "--nologfile"
+      "--nologfile",
+      "--portable"
     ]
   },
-  "listenport": 80,
-  "precmd": "if not exist z: (net use z: /home)"
+  "listenport": 8080,
+  "precmd": ""
 }
