@@ -26,5 +26,6 @@
     ]
   },
   "listenport": 8080,
-  "precmd": ""
+  "precmd": "",
+  "polling_interval": 2000
 }

@@ -13,7 +13,7 @@
     "javaoptions": [
       "run",
       "--rm",
-      "-v", "/storages/local/:/storages/local/"
+      "-v", "/storages/local/:/storages/local/",
       "--volumes-from=iped-volumes",
       "runiped",
       "java",
@@ -27,5 +27,6 @@
     ]
   },
   "listenport": 8880,
-  "precmd": ""
+  "precmd": "",
+  "polling_interval": 2000
 }
