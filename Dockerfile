@@ -8,4 +8,4 @@ WORKDIR /root/ipedqueue/
 RUN echo '{ "allow_root": true }' > /root/.bowerrc
 RUN npm install
 
-CMD ["DEBUG='ipedqueue:*'", "npm", "start"]
+CMD ["npm", "start"]
