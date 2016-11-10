@@ -1,10 +1,6 @@
 {
-  "redis":{
-    "host": "192.168.2.191",
-    "port": "6379"
-  },
   "mongodb":{
-    "host": "192.168.2.191",
+    "host": "localhost",
     "port": "27017",
     "db": "sard"
   },
@@ -16,6 +12,7 @@
       "--volumes-from=iped-volumes",
       "runiped",
       "java",
+      "-Djava.awt.headless=true",
       "-Xmx100G",
       "-Xms1G",
       "-jar",
@@ -25,7 +22,7 @@
       "--portable"
     ]
   },
-  "listenport": 8080,
+  "listenport": 80,
   "precmd": "",
   "polling_interval": 2000
 }

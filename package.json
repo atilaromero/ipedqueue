@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "gulp test",
-    "watch": "gulp watch",
+    "start": "NODE_ENV='production' node server.js",
+    "test": "NODE_ENV='test' gulp test",
+    "watch": "NODE_ENV='test' gulp watch",
     "dev": "DEBUG='ipedqueue:*' NODE_ENV=development nodemon development/server-dev.js"
   },
   "author": "",

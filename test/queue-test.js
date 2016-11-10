@@ -1,6 +1,5 @@
 /* eslint-env mocha */
 'use strict'
-process.env.NODE_ENV = 'test'
 // require('debug').enable('ipedqueue:*')
 // require('debug').enable('ipedqueue:queue')
 
