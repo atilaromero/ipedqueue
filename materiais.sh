@@ -7,30 +7,28 @@ materiais()
     materiais)
       local opts=""
       local cur="${COMP_WORDS[COMP_CWORD]}"
-      local prev="${COMP_WORDS[COMP_CWORD-1]}"
-      local antprev="${COMP_WORDS[COMP_CWORD-2]}"
       local line="${COMP_LINE}"
-      if [ "$cur" == '=' ]
-      then
-        cur=""
-        antprev="$prev"
-      fi
-      case "$antprev" in
-        --operacao)
-          opts="$(${line%--operacao*} --operacoes | xargs echo)"
+      local last="${line##* }"
+      case "$last" in
+        --*=*)
+          local field="${last%=*}"
+          field="${field#*--}"
+          opts="$(${line%$last} --list-${field})"
+          COMPREPLY=( $(compgen -W "${opts}" -- ${last#*=} | xargs -I x echo --$field=x) )
+          return 0
         ;;
         *)
           opts="--server= --operacao= --equipe= --apreensao="
-          opts+=" --operacoes --esquipes --apreensoes --paths"
+          opts+=" --list-operacao --list-equipe --list-apreensao --list-path"
+          COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
+          return 0
         ;;
       esac
-    
-      COMPREPLY=( $(compgen -W "${opts}" -- ${cur}) )
-      return 0
     ;;  
     #running from shell
     *)
       local CONDITIONS
+      local DISTINCT=_id
       while getopts ':-:' OPT
       do
         case ${OPT} in
@@ -39,17 +37,14 @@ materiais()
               server=*)
                 local SERVER=${OPTARG#*=}
               ;;
-              operacao=*)
+              *=*)
+                local field=${OPTARG%=*}
                 local val=${OPTARG#*=}
-                CONDITIONS+=${CONDITIONS:+,}'"operacao":"'${val}'"'
+                CONDITIONS+=${CONDITIONS:+,}"\"${field}\":\"${val}\""
               ;;
-              equipe=*)
-                local val=${OPTARG#*=}
-                CONDITIONS+=${CONDITIONS:+,}'"equipe":"'${val}'"'
-              ;;
-              apreensao=*)
-                local val=${OPTARG#*=}
-                CONDITIONS+=${CONDITIONS:+,}'"apreensao":"'${val}'"'
+              list-*)
+                local field=${OPTARG#list-}
+                DISTINCT=$field
               ;;
             esac
           ;;
@@ -57,32 +52,9 @@ materiais()
       done
       : ${SERVER?-Please set --server=IP:PORT}
       CONDITIONS=${CONDITIONS:+conditions=\{$CONDITIONS\}\&}
-      local DISTINCT=_id
-      OPTIND=0
-      while getopts ':-:' OPT
-      do
-        case ${OPT} in
-          -)
-            case ${OPTARG} in 
-              operacoes)
-                DISTINCT=operacao
-              ;;
-              apreensoes)
-                DISTINCT=apreensao
-              ;;
-              equipes)
-                DISTINCT=equipe
-              ;;
-              paths)
-                DISTINCT=path
-              ;;
-            esac
-          ;;
-        esac
-      done
       DISTINCT="distinct=${DISTINCT}"
       local URL="http://${SERVER}/api/material?${CONDITIONS}${DISTINCT}"
-      wget -q -O - "$URL" | sed -e '1s/^\[//' -e 's/,$//' -e '$s/\]$//' | xargs -L 1 echo
+      wget -q -O - "$URL" | sed -e '1s/^\[//' -e 's/,$//' -e '$s/\]$//' | xargs -L1 echo
     ;;
   esac
 }
