@@ -14,7 +14,7 @@ materiais()
           local field="${last%=*}"
           field="${field#*--}"
           opts="$(${line%$last} --list-${field})"
-          COMPREPLY=( $(compgen -W "${opts}" -- ${last#*=} | xargs -I x echo --$field=x) )
+          COMPREPLY=( $(compgen -W "${opts}" -P "--${field}=" -- ${last#*=} ) )
           return 0
         ;;
         *)
@@ -59,6 +59,7 @@ materiais()
   esac
 }
 complete -o nospace -F materiais materiais
+complete -o nospace -F materiais materiais.sh
 if [ ${0##*/} == "materiais.sh" ]
 then
   materiais "$@"
