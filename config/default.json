@@ -10,7 +10,7 @@
       "run",
       "--rm",
       "--volumes-from=iped-volumes",
-      "runiped",
+      "setecrs/runiped",
       "java",
       "-Djava.awt.headless=true",
       "-Xmx100G",
