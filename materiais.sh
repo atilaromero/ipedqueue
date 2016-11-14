@@ -4,7 +4,7 @@ materiais()
   local OPTIND
   case "$1" in
     #running from bash completion
-    materiais)
+    *materiais*)
       local opts=""
       local cur="${COMP_WORDS[COMP_CWORD]}"
       local line="${COMP_LINE}"
@@ -14,7 +14,7 @@ materiais()
           local field="${last%=*}"
           field="${field#*--}"
           opts="$(${line%$last} --list-${field})"
-          COMPREPLY=( $(compgen -W "${opts}" -P "--${field}=" -- ${last#*=} ) )
+          COMPREPLY=( $(compgen -W "${opts}" -- ${last#*=} ) )
           return 0
         ;;
         *)
