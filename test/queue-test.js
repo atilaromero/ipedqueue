@@ -51,7 +51,7 @@ describe('Server - ', function () {
   describe('Material - ', function () {
     it('can save a material', function (done) {
       this.wagner.invoke((Material) => {
-        let mat = new Material({_id: 160004, operacao: 'teste', path: 'test/ok'})
+        let mat = new Material({material: 160004, operacao: 'teste', path: 'test/ok'})
         mat.save()
         .then(() => { done() })
         .catch(done)
@@ -68,7 +68,7 @@ describe('Server - ', function () {
     })
     function queue1image (done, wagner, matpath, grpstatus, grpfinalstatus) {
       wagner.invoke((Material, queue) => {
-        let mat = new Material({_id: 160003, operacao: 'teste', path: matpath, state: grpstatus})
+        let mat = new Material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
         mat.save()
         .then(() => {
           return queue.singleProcess()

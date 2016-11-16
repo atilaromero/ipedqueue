@@ -12,12 +12,17 @@ wagner.invoke((config, app) => {
   app.listen(config.listenport)
   wagner.invoke((Material, queue) => {
     let mat1 = new Material({
-      _id: 160001,
-      operacao: 'teste',
-      path: path.join(__dirname, 'ntfs.dd')
+      material: 160001,
+      mat_suffix: 'chip',
+      item: 3,
+      apreensao: 160290,
+      ipl: 161234,
+      ipl_suffix: 'cxs',
+      equipe: 'POA01',
+      operacao: 'teste'
     })
     let mat2 = new Material({
-      _id: 160002,
+      material: 160002,
       operacao: 'teste',
       path: path.join(__dirname, 'ntfs.dd')
     })
