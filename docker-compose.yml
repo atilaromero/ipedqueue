@@ -1,4 +1,22 @@
-mongo:
+iped-queue:
+  image: setecrs/ipedqueue
+  volumes:
+    - ./config/production.json:/root/ipedqueue/config/production.json
+    - /var/run/docker.sock:/var/run/docker.sock
+  volumes_from:
+    - iped-volumes
+  environment:
+    - DEBUG=ipedqueue:*
+  command: npm start
+iped-volumes:
+  image: setecrs/iped-config
+  container_name: iped-volumes
+  volumes:
+    - /mnt/cloud/kff:/var/lib/kff:Z
+    - /mnt/cloud/led:/var/lib/led:Z
+    - /mnt/sard/operacoes:/operacoes/:Z
+  command: /bin/true
+mongo-test:
   image: mongo
   container_name: mongo-test
   ports:
