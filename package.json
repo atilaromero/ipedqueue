@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV='production' node server.js",
+    "start": "NODE_ENV='production' nodemon server.js",
     "view": "NODE_ENV='production' node lib/view.js",
     "test": "NODE_ENV='test' gulp test",
     "watch": "NODE_ENV='test' gulp watch",
@@ -25,6 +25,7 @@
     "fs-extra": "^0.30.0",
     "messa": "0.0.4",
     "mongoose": "^4.5.8",
+    "nodemon": "^1.10.2",
     "wagner-core": "^0.2.0"
   },
   "devDependencies": {
@@ -35,7 +36,6 @@
     "gulp-util": "^3.0.7",
     "mocha": "^3.0.2",
     "mocha-standard": "^1.0.0",
-    "nodemon": "^1.10.2",
     "standard": "^8.0.0"
   }
 }
