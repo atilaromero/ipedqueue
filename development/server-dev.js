@@ -24,7 +24,8 @@ wagner.invoke((config, app) => {
     let mat2 = new Material({
       material: 160002,
       operacao: 'teste',
-      path: path.join(__dirname, 'ntfs.dd')
+      path: path.join(__dirname, 'ntfs.dd'),
+      state: 'todo'
     })
     Promise.all([
       Material.remove({})

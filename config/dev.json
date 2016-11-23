@@ -7,10 +7,11 @@
     "javaoptions": [
       "run",
       "--rm",
-      "-v", "/storages/local/:/storages/local/",
+      "-v", "\"$(realpath .)\":\"$(realpath .)\"",
       "--volumes-from=iped-volumes",
-      "runiped",
+      "setecrs/runiped",
       "java",
+      "-Djava.awt.headless=true",
       "-Xmx100G",
       "-Xms1G",
       "-jar",
@@ -21,5 +22,6 @@
     ]
   },
   "listenport": 8880,
+  "precmd": "rm -r \"$(pwd)\"/development/SARD/ || true",
   "polling_interval": 2000
 }
