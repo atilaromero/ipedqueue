@@ -13,7 +13,7 @@
       "setecrs/runiped",
       "java",
       "-Djava.awt.headless=true",
-      "-Xmx6G",
+      "-Xmx32G",
       "-Xms1G",
       "-jar",
       "/root/iped/iped.jar",
