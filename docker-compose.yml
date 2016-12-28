@@ -1,5 +1,6 @@
 iped-queue:
   image: setecrs/ipedqueue
+  net: host
   volumes:
     - ./config/production.json:/root/ipedqueue/config/production.json
     - /var/run/docker.sock:/var/run/docker.sock

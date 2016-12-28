@@ -11,6 +11,7 @@ RUN npm install
 COPY ./config/ /root/ipedqueue/config/
 COPY ./development/ /root/ipedqueue/development/
 COPY ./lib/ /root/ipedqueue/lib/
+COPY ./hash/ /root/ipedqueue/hash/
 COPY ./test/ /root/ipedqueue/test/
 COPY ./*.* /root/ipedqueue/test/
 
