@@ -1,6 +1,6 @@
 FROM alpine:3.4
 
-RUN apk add --no-cache docker nodejs
+RUN apk add --no-cache docker nodejs bash findutils
 
 COPY ./package.json /root/ipedqueue/
 WORKDIR /root/ipedqueue/

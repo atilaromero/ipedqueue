@@ -10,12 +10,6 @@ chai.config.includeStack = false
 const expect = chai.expect
 const Promise = require('bluebird')
 
-function sleep (ms) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms)
-  })
-}
-
 describe('Server - ', function () {
   var server
   before(function (done) {

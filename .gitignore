@@ -4,4 +4,6 @@ iped
 config/local*.json
 config/production.json
 development/SARD
+development/hash*
 test/SARD
+test/hash*
