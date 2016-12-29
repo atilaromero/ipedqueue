@@ -1,20 +1,14 @@
 /* eslint-env mocha */
 'use strict'
-// require('debug').enable('ipedqueue:*')
-// require('debug').enable('ipedqueue:queue')
 
 // const debug = require('debug')('ipedqueue:queue-test')
-const chai = require('chai')
-chai.use(require('chai-as-promised'))
-chai.config.includeStack = false
-const expect = chai.expect
 const Promise = require('bluebird')
 const wagner = require('wagner-core')
-require('../lib/app')
 
-describe('Server - ', function () {
+describe('Server.', function () {
   var server
   before(function (done) {
+    require('../lib/app')
     wagner.invoke((app, config) => {
       server = app.listen(config.listenport)
     })
@@ -34,22 +28,43 @@ describe('Server - ', function () {
   })
 
   describe('config', function () {
-    it('port is 8880', function (done) {
-      wagner.invoke(function (config) {
-        expect(config.listenport).equal(8880)
-        done()
-      })
-    })
+    let tests = require('./config')
+    it('port is 8880', tests.port)
   })
 
-  describe('Material - ', function () {
+  describe('Material.', function () {
     let tests = require('./material')
     it('can save a material', tests.save)
   })
 
-  describe('Queue singleProcess - ', function () {
-    let tests = require('./queue')
-    it('changes material state if process exits with error', tests.fail)
-    it('changes material state if process exits fine', tests.ok)
+  describe('queue.', function () {
+    describe('all.', function () {
+      let tests = require('./queue')
+      it('changes material state if process exits with error', tests.fail)
+      it('changes material state if process exits fine', tests.ok)
+    })
+
+    describe('hashes-dir.', function () {
+      let tests = require('./queue/hashes-dir')
+      describe('directory empty.', function () {
+        it('hash all files', tests.dirempty)
+      })
+      describe('hashes exists.', function () {
+        it('hash all files again', tests.rehash)
+      })
+    })
+
+    describe('hashes-image', function () {
+      let tests = require('./queue/hashes-image')
+      it('calc hashes when no hashes exists', tests.nohashes)
+      it('calc hashes when they exists but are incomplete', tests.incomplete)
+      describe('do nothing when hashes are done', function () {
+        it('image size: 0 bytes', tests.donothing(0, 0, true))
+        it('image size: 1 byte', tests.donothing(1, 1, true))
+        it('image size: 1G - 1 byte', tests.donothing(Math.pow(1024, 3) - 1, 1, true))
+        it('image size: 1G', tests.donothing(Math.pow(1024, 3), 1, true))
+        it('image size: 1G + 1 byte', tests.donothing(Math.pow(1024, 3) + 1, 2, true))
+      })
+    })
   })
 })
