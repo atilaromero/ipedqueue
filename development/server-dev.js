@@ -6,7 +6,7 @@ const path = require('path')
 const Promise = require('bluebird')
 const fs = require('fs-extra')
 
-require('../lib/app')(wagner)
+require('../lib/app')
 
 wagner.invoke((config, app) => {
   app.listen(config.listenport)
