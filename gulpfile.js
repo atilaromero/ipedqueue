@@ -3,7 +3,7 @@ var $ = require('gulp-load-plugins')()
 
 gulp.task('test', () => {
   return gulp
-    .src('test/**-test.js')
+    .src('test/**.js')
     .pipe($.mocha({reporter: 'list'}))
     .on('error', $.util.log)
 })

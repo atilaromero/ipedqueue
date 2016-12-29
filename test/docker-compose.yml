@@ -1,0 +1,6 @@
+mongo-test:
+  image: mongo
+  container_name: mongo-test
+  ports:
+    - 127.0.0.1:27017:27017
+  restart: on-failure
