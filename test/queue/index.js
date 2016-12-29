@@ -16,25 +16,33 @@ module.exports.ok = function (done) {
   queue1image(done, 'test/tmp/ok', 'todo', 'done')
 }
 
+module.exports.missing = function (done) {
+  _queue1image(done, 'test/tmp/missing', 'todo', 'todo')
+  .catch(() => { return done() }) // ignore missing file error
+}
+
+function _queue1image (done, matpath, grpstatus, grpfinalstatus) {
+  return wagner.invoke((Material, queue) => {
+    let mat = new Material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
+    return mat.save()
+    .then(() => {
+      return queue.singleProcess()
+    })
+    .then(() => {
+      return Material.findById(mat._id)
+      .then(doc => {
+        expect(doc).not.equal(null)
+        expect(doc.state).equal(grpfinalstatus)
+      })
+    })
+    .then(() => { done() })
+  })
+}
+
 function queue1image (done, matpath, grpstatus, grpfinalstatus) {
   fs.ensureFileAsync(matpath)
   .then(() => {
-    wagner.invoke((Material, queue) => {
-      let mat = new Material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
-      mat.save()
-      .then(() => {
-        return queue.singleProcess()
-      })
-      .then(() => {
-        return Material.findById(mat._id)
-        .then(doc => {
-          expect(doc).not.equal(null)
-          expect(doc.state).equal(grpfinalstatus)
-        })
-      })
-      .then(() => { done() })
-      .catch(done)
-    })
+    return _queue1image(done, matpath, grpstatus, grpfinalstatus)
   })
   .catch(done)
 }

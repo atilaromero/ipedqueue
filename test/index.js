@@ -42,6 +42,7 @@ describe('Server.', function () {
       let tests = require('./queue')
       it('changes material state if process exits with error', tests.fail)
       it('changes material state if process exits fine', tests.ok)
+      it('does not change state if image does not exist', tests.missing)
     })
 
     describe('hashes-dir.', function () {
