@@ -3,6 +3,5 @@ npm-debug.log
 iped
 config/local*.json
 config/production.json
-development/SARD
-development/hash*
+development/output
 test/tmp

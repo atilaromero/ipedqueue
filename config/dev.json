@@ -7,7 +7,7 @@
     "javaoptions": [
       "run",
       "--rm",
-      "--volumes-from=ipedqueue_iped-queue_1",
+      "--volumes-from=development_iped-queue_1",
       "--volumes-from=iped-volumes",
       "setecrs/runiped",
       "java",

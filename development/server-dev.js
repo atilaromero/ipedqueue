@@ -5,6 +5,7 @@ const wagner = require('wagner-core')
 const path = require('path')
 const Promise = require('bluebird')
 const fs = require('fs-extra')
+const runProc = require('../lib/runProc')
 
 require('../lib/app')
 
@@ -13,7 +14,7 @@ wagner.invoke((config, app) => {
   wagner.invoke((Material, queue) => {
     let mat1 = new Material({
       material: 160001,
-      mat_suffix: 'chip',
+      mat_suffix: 'Oi',
       item: 3,
       apreensao: 160290,
       ipl: 161234,
@@ -24,7 +25,7 @@ wagner.invoke((config, app) => {
     let mat2 = new Material({
       material: 160002,
       operacao: 'teste',
-      path: path.join(__dirname, 'ntfs.dd'),
+      path: path.join(__dirname, 'output/ntfs.dd'),
       state: 'todo'
     })
     Promise.all([
@@ -40,6 +41,12 @@ wagner.invoke((config, app) => {
           })
         })
       })
+    })
+    .then(() => {
+      return runProc('mkdir', [path.join(__dirname, '/output/')])
+    })
+    .then(() => {
+      return runProc('cp', [path.join(__dirname, '/ntfs.dd'), path.join(__dirname, '/output/ntfs.dd')])
     })
     .then(() => { return mat1.save() })
     .then(() => { return mat2.save() })
