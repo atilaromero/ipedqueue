@@ -1,14 +1,15 @@
 iped-queue:
   image: setecrs/ipedqueue
+  privileged: true
   net: host
   volumes:
-    - ./config/production.json:/root/ipedqueue/config/production.json
     - /var/run/docker.sock:/var/run/docker.sock
+    #- ./:/root/ipedqueue/
   volumes_from:
     - iped-volumes
   environment:
+    - NODE_CONFIG={"mongodb":{"host":"192.168.2.191"}}
     - DEBUG=ipedqueue:*
-  command: npm start
 iped-volumes:
   image: setecrs/iped-config
   container_name: iped-volumes
@@ -16,4 +17,5 @@ iped-volumes:
     - /mnt/cloud/kff:/var/lib/kff:Z
     - /mnt/cloud/led:/var/lib/led:Z
     - /mnt/cloud/operacoes:/operacoes/:Z
+    - /mnt/cloud/:/mnt/cloud/:Z
   command: /bin/true
