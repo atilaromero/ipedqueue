@@ -26,8 +26,7 @@
     "fs-extra": "^0.30.0",
     "messa": "0.0.4",
     "mongoose": "^4.5.8",
-    "nodemon": "^1.10.2",
-    "wagner-core": "^0.2.0"
+    "nodemon": "^1.10.2"
   },
   "devDependencies": {
     "chai": "^3.5.0",
