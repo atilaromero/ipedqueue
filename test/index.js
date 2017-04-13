@@ -3,17 +3,15 @@
 
 // const debug = require('debug')('ipedqueue:queue-test')
 const Promise = require('bluebird')
-const wagner = require('wagner-core')
 const config = require('config')
+const app = require('../lib/app')
 require('../lib/connect-with-retry')
 
 describe('Server.', function () {
   var server
   before(function (done) {
     require('../lib/app')
-    wagner.invoke((app) => {
-      server = app.listen(config.listenport)
-    })
+    server = app.listen(config.listenport)
     done()
   })
   beforeEach(function (done) {
