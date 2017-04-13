@@ -6,17 +6,18 @@ iped-queue:
     - /var/run/docker.sock:/var/run/docker.sock
     - ../:/root/ipedqueue/
   volumes_from:
-    - iped-volumes
+    - iped-volumes2
   environment:
     - DEBUG=ipedqueue:*
   command: npm run dev
-iped-volumes:
+iped-volumes2:
   image: setecrs/iped-config
-  container_name: iped-volumes
+  container_name: iped-volumes2
   volumes:
     - /mnt/cloud/kff:/var/lib/kff:Z
     - /mnt/cloud/led:/var/lib/led:Z
     - /mnt/cloud/operacoes:/operacoes/:Z
+    - /mnt/cloud/:/mnt/cloud/:Z
   command: /bin/true
 mongo-test:
   image: mongo

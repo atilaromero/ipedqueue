@@ -13,6 +13,6 @@
       "--nologfile"
     ]
   },
-  "listenport": 8880,
+  "listenport": 8888,
   "precmd": ""
 }

@@ -4,12 +4,13 @@
 // const debug = require('debug')('ipedqueue:queue-test')
 const Promise = require('bluebird')
 const wagner = require('wagner-core')
+const config = require('config')
 
 describe('Server.', function () {
   var server
   before(function (done) {
     require('../lib/app')
-    wagner.invoke((app, config) => {
+    wagner.invoke((app) => {
       server = app.listen(config.listenport)
     })
     done()
@@ -29,7 +30,7 @@ describe('Server.', function () {
 
   describe('config', function () {
     let tests = require('./config')
-    it('port is 8880', tests.port)
+    it('port is 8888', tests.port)
   })
 
   describe('Material.', function () {

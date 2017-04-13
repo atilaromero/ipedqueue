@@ -6,11 +6,14 @@ const path = require('path')
 const Promise = require('bluebird')
 const fs = require('fs-extra')
 const runProc = require('../lib/runProc')
+const config = require('config')
 
 require('../lib/app')
 
-wagner.invoke((config, app) => {
-  app.listen(config.listenport)
+wagner.invoke((app) => {
+  app.listen(config.listenport, () => {
+    console.log('Listening at %s', config.listenport)
+  })
   wagner.invoke((Material, queue) => {
     let mat1 = new Material({
       material: 160001,
