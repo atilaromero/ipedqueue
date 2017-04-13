@@ -5,6 +5,7 @@
 const Promise = require('bluebird')
 const wagner = require('wagner-core')
 const config = require('config')
+require('../lib/connect-with-retry')
 
 describe('Server.', function () {
   var server
@@ -16,12 +17,11 @@ describe('Server.', function () {
     done()
   })
   beforeEach(function (done) {
-    wagner.invoke((Material) => {
-      Promise.resolve()
-      .then(() => { return Material.remove({}) })
-      .then(() => { done() })
-      .catch(done)
-    })
+    let Material = require('../lib/models/material')
+    Promise.resolve()
+    .then(() => { return Material.remove({}) })
+    .then(() => { done() })
+    .catch(done)
   })
   after(function (done) {
     server.close()

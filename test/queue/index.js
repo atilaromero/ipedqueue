@@ -7,6 +7,7 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 chai.config.includeStack = false
 const expect = chai.expect
+const Material = require('../../lib/models/material')
 
 module.exports.fail = function (done) {
   queue1image(done, 'test/tmp/fail', 'todo', 'failed')
@@ -22,7 +23,7 @@ module.exports.missing = function (done) {
 }
 
 function _queue1image (done, matpath, grpstatus, grpfinalstatus) {
-  return wagner.invoke((Material, queue) => {
+  return wagner.invoke((queue) => {
     let mat = new Material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
     return mat.save()
     .then(() => {

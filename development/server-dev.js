@@ -7,6 +7,8 @@ const Promise = require('bluebird')
 const fs = require('fs-extra')
 const runProc = require('../lib/runProc')
 const config = require('config')
+require('../lib/connect-with-retry')
+const Material = require('../lib/models/material')
 
 require('../lib/app')
 
@@ -14,7 +16,7 @@ wagner.invoke((app) => {
   app.listen(config.listenport, () => {
     console.log('Listening at %s', config.listenport)
   })
-  wagner.invoke((Material, queue) => {
+  wagner.invoke((queue) => {
     let mat1 = new Material({
       material: 160001,
       mat_suffix: 'Oi',
