@@ -1,9 +1,9 @@
 'use strict'
 
-const Material = require('../../lib/models/material')
+const mongoose = require('mongoose')
 
 module.exports.save = function (done) {
-  let mat = new Material({material: 160004, operacao: 'teste', path: 'test/ok'})
+  let mat = new mongoose.models.material({material: 160004, operacao: 'teste', path: 'test/ok'})
   mat.save()
   .then(() => { done() })
   .catch(done)

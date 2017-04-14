@@ -6,8 +6,8 @@ const chai = require('chai')
 chai.use(require('chai-as-promised'))
 chai.config.includeStack = false
 const expect = chai.expect
-const Material = require('../../lib/models/material')
 const queue = require('../../lib/queue')
+const mongoose = require('mongoose')
 
 module.exports.fail = function (done) {
   queue1image(done, 'test/tmp/fail', 'todo', 'failed')
@@ -23,13 +23,13 @@ module.exports.missing = function (done) {
 }
 
 function _queue1image (done, matpath, grpstatus, grpfinalstatus) {
-  let mat = new Material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
+  let mat = new mongoose.models.material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
   return mat.save()
   .then(() => {
     return queue.singleProcess()
   })
   .then(() => {
-    return Material.findById(mat._id)
+    return mongoose.models.material.findById(mat._id)
     .then(doc => {
       expect(doc).not.equal(null)
       expect(doc.state).equal(grpfinalstatus)

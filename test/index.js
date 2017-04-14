@@ -4,20 +4,25 @@
 // const debug = require('debug')('ipedqueue:queue-test')
 const Promise = require('bluebird')
 const config = require('config')
-const app = require('../lib/app')
-require('../lib/connect-with-retry')
+const opencaseCore = require('../lib/core')
+const mongoose = require('mongoose')
 
 describe('Server.', function () {
   var server
   before(function (done) {
-    require('../lib/app')
-    server = app.listen(config.listenport)
-    done()
+    opencaseCore.connect(config.mongodb.host, config.mongodb.port, config.mongodb.db)
+    .then(() => {
+      require('baucis') // must be required before registering the model
+      opencaseCore.mkModel()
+      let app = require('../lib/app')
+      server = app.listen(config.listenport)
+      done()
+    })
+    .catch(done)
   })
   beforeEach(function (done) {
-    let Material = require('../lib/models/material')
     Promise.resolve()
-    .then(() => { return Material.remove({}) })
+    .then(() => { return mongoose.models.material.remove({}) })
     .then(() => { done() })
     .catch(done)
   })
@@ -42,16 +47,6 @@ describe('Server.', function () {
       it('changes material state if process exits with error', tests.fail)
       it('changes material state if process exits fine', tests.ok)
       it('does not change state if image does not exist', tests.missing)
-    })
-
-    describe('hashes-dir.', function () {
-      let tests = require('./queue/hashes-dir')
-      describe('directory empty.', function () {
-        it('hash all files', tests.dirempty)
-      })
-      describe('hashes exists.', function () {
-        it('hash all files again', tests.rehash)
-      })
     })
 
     describe('hashes-image', function () {
