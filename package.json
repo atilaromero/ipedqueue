@@ -7,8 +7,8 @@
     "nodemon": "nodemon lib/server.js",
     "start": "node lib/server.js",
     "view": "node lib/view.js",
-    "test": "NODE_ENV='test' gulp test",
-    "watch": "NODE_ENV='test' gulp watch",
+    "test": "NODE_ENV='test' mocha",
+    "watch": "NODE_ENV='test' mocha --watch",
     "dev": "DEBUG='ipedqueue:*' NODE_ENV=development nodemon development/server-dev.js"
   },
   "author": "",

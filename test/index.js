@@ -49,17 +49,6 @@ describe('Server.', function () {
       it('does not change state if image does not exist', tests.missing)
     })
 
-    describe('hashes-image', function () {
-      let tests = require('./queue/hashes-image')
-      it('calc hashes when no hashes exists', tests.nohashes)
-      it('calc hashes when they exists but are incomplete', tests.incomplete)
-      describe('do nothing when hashes are done', function () {
-        it('image size: 0 bytes', tests.donothing(0, 0, true))
-        it('image size: 1 byte', tests.donothing(1, 1, true))
-        it('image size: 1G - 1 byte', tests.donothing(Math.pow(1024, 3) - 1, 1, true))
-        it('image size: 1G', tests.donothing(Math.pow(1024, 3), 1, true))
-        it('image size: 1G + 1 byte', tests.donothing(Math.pow(1024, 3) + 1, 2, true))
-      })
-    })
+    require('../lib/queue/tasks/hashlog.test')
   })
 })
