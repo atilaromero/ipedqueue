@@ -7,6 +7,7 @@
     "nodemon": "nodemon lib/server.js",
     "start": "node lib/server.js",
     "view": "node lib/view.js",
+    "queue": "node lib/queue/server.js",
     "test": "NODE_ENV='test' mocha",
     "watch": "NODE_ENV='test' mocha --watch",
     "dev": "DEBUG='ipedqueue:*' NODE_ENV=development nodemon development/server-dev.js"
@@ -31,10 +32,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-load-plugins": "^1.2.4",
-    "gulp-mocha": "^3.0.1",
-    "gulp-util": "^3.0.7",
     "mocha": "^3.0.2",
     "mocha-standard": "^1.0.0",
     "standard": "^8.0.0"
