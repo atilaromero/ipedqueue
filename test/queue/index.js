@@ -26,7 +26,7 @@ function _queue1image (done, matpath, grpstatus, grpfinalstatus) {
   let mat = new mongoose.models.material({material: 160003, operacao: 'teste', path: matpath, state: grpstatus})
   return mat.save()
   .then(() => {
-    return queue.singleProcess()
+    return queue.chooseOne().then(queue.processOne)
   })
   .then(() => {
     return mongoose.models.material.findById(mat._id)
