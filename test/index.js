@@ -1,55 +1,35 @@
 /* eslint-env mocha */
 'use strict'
 
-// const debug = require('debug')('ipedqueue:queue-test')
-const Promise = require('bluebird')
 const config = require('config')
 const opencaseCore = require('../lib/core')
 const mongoose = require('mongoose')
+const expect = require('chai').expect
 
 describe('Server.', function () {
   var server
-  before(function (done) {
-    opencaseCore.connect(config.mongodb.host, config.mongodb.port, config.mongodb.db)
+  before(function () {
+    return opencaseCore.connect(config.mongodb.host, config.mongodb.port, config.mongodb.db)
     .then(() => {
       require('baucis') // must be required before registering the model
       opencaseCore.mkModel()
       let app = require('../lib/app')
       server = app.listen(config.listenport)
-      done()
     })
-    .catch(done)
   })
-  beforeEach(function (done) {
-    Promise.resolve()
-    .then(() => { return mongoose.models.material.remove({}) })
-    .then(() => { done() })
-    .catch(done)
+  beforeEach(function () {
+    return mongoose.models.material.remove({})
   })
-  after(function (done) {
+  after(function () {
     server.close()
-    done()
   })
 
   describe('config', function () {
-    let tests = require('./config')
-    it('port is 8888', tests.port)
-  })
-
-  describe('Material.', function () {
-    let tests = require('./material')
-    it('can save a material', tests.save)
-  })
-
-  describe('queue.', function () {
-    describe('all.', function () {
-      let tests = require('./queue')
-      it('changes material state if process exits with error', tests.fail)
-      it('changes material state if process exits fine', tests.ok)
-      it('does not change state if image does not exist', tests.missing)
+    it('port is 8888', () => {
+      expect(config.listenport).equal(8888)
     })
-
-    require('../lib/core/test')
-    require('../lib/queue/tasks/hashlog/test')
   })
+
+  require('../lib/core/test')
+  require('../lib/queue/test')
 })
