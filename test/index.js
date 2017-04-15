@@ -49,6 +49,7 @@ describe('Server.', function () {
       it('does not change state if image does not exist', tests.missing)
     })
 
+    require('../lib/core/test')
     require('../lib/queue/tasks/hashlog/test')
   })
 })
