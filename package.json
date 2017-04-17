@@ -6,6 +6,7 @@
   "scripts": {
     "nodemon": "nodemon lib/server.js",
     "start": "node lib/server.js",
+    "queue": "node lib/server0.js",
     "view": "node lib/view.js",
     "test": "NODE_ENV='test' gulp test",
     "watch": "NODE_ENV='test' gulp watch",
