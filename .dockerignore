@@ -1,3 +1,4 @@
 node_modules
+development/output
 test/tmp
-development/SARD
+lib/queue/tasks/hashlog/tmp
