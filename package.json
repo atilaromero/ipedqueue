@@ -6,10 +6,10 @@
   "scripts": {
     "nodemon": "nodemon lib/server.js",
     "start": "node lib/server0.js",
-    "queue": "node lib/server0.js",
     "view": "node lib/view.js",
-    "test": "NODE_ENV='test' gulp test",
-    "watch": "NODE_ENV='test' gulp watch",
+    "queue": "node lib/queue/server.js",
+    "test": "NODE_ENV='test' mocha",
+    "watch": "NODE_ENV='test' mocha --watch",
     "dev": "DEBUG='ipedqueue:*' NODE_ENV=development nodemon development/server-dev.js"
   },
   "author": "",
@@ -19,6 +19,7 @@
     "baucis-swagger2": "^0.3.17",
     "bluebird": "^3.4.6",
     "chai-as-promised": "^5.3.0",
+    "child-process-promise": "^2.2.1",
     "compression": "^1.6.2",
     "config": "^1.21.0",
     "debug": "^2.2.0",
@@ -31,10 +32,6 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-load-plugins": "^1.2.4",
-    "gulp-mocha": "^3.0.1",
-    "gulp-util": "^3.0.7",
     "mocha": "^3.0.2",
     "mocha-standard": "^1.0.0",
     "standard": "^8.0.0"

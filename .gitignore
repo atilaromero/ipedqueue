@@ -5,3 +5,4 @@ config/local*.json
 config/production.json
 development/output
 test/tmp
+lib/queue/tasks/hashlog/tmp
