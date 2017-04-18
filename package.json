@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "nodemon": "nodemon lib/server.js",
-    "start": "node lib/server.js",
+    "start": "node lib/server0.js",
+    "queue": "node lib/server0.js",
     "view": "node lib/view.js",
     "queue": "node lib/queue/server.js",
     "test": "NODE_ENV='test' mocha",
