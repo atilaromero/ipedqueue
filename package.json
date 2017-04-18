@@ -6,7 +6,6 @@
   "scripts": {
     "nodemon": "nodemon lib/server.js",
     "start": "node lib/server0.js",
-    "queue": "node lib/server0.js",
     "view": "node lib/view.js",
     "queue": "node lib/queue/server.js",
     "test": "NODE_ENV='test' mocha",
@@ -20,6 +19,7 @@
     "baucis-swagger2": "^0.3.17",
     "bluebird": "^3.4.6",
     "chai-as-promised": "^5.3.0",
+    "child-process-promise": "^2.2.1",
     "compression": "^1.6.2",
     "config": "^1.21.0",
     "debug": "^2.2.0",
