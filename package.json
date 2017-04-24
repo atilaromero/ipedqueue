@@ -8,6 +8,7 @@
     "start": "node lib/server0.js",
     "view": "node lib/view.js",
     "queue": "node lib/queue/server.js",
+    "task-hashlog": "node lib/queue/tasks/hashlog/server.js",
     "test": "NODE_ENV='test' mocha",
     "watch": "NODE_ENV='test' mocha --watch",
     "dev": "DEBUG='ipedqueue:*' NODE_ENV=development nodemon development/server-dev.js"
