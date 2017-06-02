@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "nodemon": "nodemon lib/server.js",
     "start": "node lib/queue/server.js",
     "view": "node lib/view.js",
     "queue": "node lib/queue/server.js",
