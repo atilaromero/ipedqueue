@@ -9,7 +9,7 @@
     "queue": "node lib/queue/server.js",
     "test": "NODE_ENV='test' mocha",
     "watch": "NODE_ENV='test' mocha --watch",
-    "dev": "DEBUG='ipedqueue:*' NODE_ENV=development nodemon development/server-dev.js"
+    "dev": "DEBUG='ipedqueue:*' NODE_ENV=dev nodemon lib/queue/server.js"
   },
   "author": "",
   "license": "GPL-3.0",
