@@ -10,7 +10,7 @@
       "run",
       "--rm",
       "--volumes-from=iped-volumes",
-      "setecrs/runiped",
+      "deepcase/iped:3.12.4",
       "java",
       "-Djava.awt.headless=true",
       "-Xmx32G",
