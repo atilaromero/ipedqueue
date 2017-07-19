@@ -2,17 +2,17 @@
 'use strict'
 
 const config = require('config')
-const opencaseCore = require('../lib/core')
+const core = require('../lib/core')
 const mongoose = require('mongoose')
 const expect = require('chai').expect
 
 describe('Server.', function () {
   var server
   before(function () {
-    return opencaseCore.connect(config.mongodb.host, config.mongodb.port, config.mongodb.db)
+    return core.connect(config.mongodb.host, config.mongodb.port, config.mongodb.db)
     .then(() => {
       require('baucis') // must be required before registering the model
-      opencaseCore.mkModel()
+      core.mkModel()
       let app = require('../lib/app')
       server = app.listen(config.listenport)
     })
