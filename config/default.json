@@ -24,5 +24,6 @@
   },
   "listenport": 80,
   "precmd": "",
-  "polling_interval": 2000
+  "polling_interval": 2000,
+  "EVENTS_URL": "http://iped-queue-events:80/"
 }
