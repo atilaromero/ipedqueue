@@ -7,6 +7,6 @@ RUN echo '{ "allow_root": true }' > /root/.bowerrc
 COPY ./ /root/ipedqueue/
 WORKDIR /root/ipedqueue/
 
-RUN npm install
+RUN npm install --only=production
 
 CMD ["npm", "start"]
