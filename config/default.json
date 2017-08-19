@@ -10,6 +10,7 @@
       "run",
       "--rm",
       "--volumes-from=iped-volumes",
+      "--tmpfs", "/tmp/",
       "deepcase/iped:debian-3.12.4-NIOFS",
       "java",
       "-Djava.awt.headless=true",
