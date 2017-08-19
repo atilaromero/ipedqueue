@@ -26,5 +26,6 @@
   "listenport": 80,
   "precmd": "",
   "polling_interval": 2000,
+  "evidence_types": ["HD", "pendrive", "TIM", "Vivo", "Oi", "Claro", "Tigo", "mem_cel", "mem_ext", "tablet"],
   "EVENTS_URL": "http://iped-queue-events:80/"
 }
