@@ -1,1 +1,4 @@
 EVENTS_URL: EVENTS_URL
+mongodb:
+  host: MONGO_HOST
+listenport: PORT
