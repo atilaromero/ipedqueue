@@ -11,7 +11,7 @@
       "--rm",
       "--volumes-from=iped-volumes",
       "--tmpfs=/tmp:exec,mode=777",
-      "deepcase/iped:debian-3.12.4-NIOFS",
+      "deepcase/iped:debian-3.12.4-NIOFS-2",
       "java",
       "-Djava.awt.headless=true",
       "-d64",
