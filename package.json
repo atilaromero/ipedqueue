@@ -27,7 +27,7 @@
     "express-swagger-ui": "=0.1.0",
     "fs-extra": "=0.30.0",
     "messa": "git+https://github.com/setecrs/messa.git",
-    "mongoose": "=4.5.8",
+    "mongoose": "=5.7.5",
     "nodemon": "=1.10.2"
   },
   "devDependencies": {
